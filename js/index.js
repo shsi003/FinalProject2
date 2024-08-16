@@ -41,6 +41,12 @@ document.getElementById("searchBtn").addEventListener("click", async () => {
         searchResults.innerHTML = 'Please enter a search term.';
     }
 });
+
+
+
+
+
+
 function displayBooks(books) {
     const searchResults = document.getElementById('searchResults');
     searchResults.innerHTML = '';
@@ -76,8 +82,33 @@ function addBookToUserList(title, author) {
     const userBookList = document.getElementById('userBookList');
     const listItem = document.createElement('li');
     listItem.textContent = `${title} by ${author}`;
+    
+    // Create a remove button
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    
+    // Attach event listener to the remove button
+    removeButton.addEventListener('click', () => {
+        // Remove the book from the list
+        userBookList.removeChild(listItem);
+        // You may also want to update any in-memory book list or data structure if applicable
+    });
+    
+    // Append the remove button to the list item
+    listItem.appendChild(removeButton);
+    
+    // Append the list item to the user book list
     userBookList.appendChild(listItem);
 }
+
+
+//backup code incase the one above fails
+/*function addBookToUserList(title, author) {
+    const userBookList = document.getElementById('userBookList');
+    const listItem = document.createElement('li');
+    listItem.textContent = `${title} by ${author}`;
+    userBookList.appendChild(listItem);
+}*/
 
 
 
