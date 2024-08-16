@@ -1,7 +1,7 @@
-// auth.js
-import { auth } from "../firebaseConfig.js";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+import { auth } from "../firebaseConfig.js";
 
+// Register User
 export const registerUser = async (email, password) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -11,6 +11,7 @@ export const registerUser = async (email, password) => {
     }
 };
 
+// Login User
 export const loginUser = async (email, password) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -20,6 +21,7 @@ export const loginUser = async (email, password) => {
     }
 };
 
+// Logout User
 export const logoutUser = async () => {
     try {
         await signOut(auth);
@@ -29,11 +31,8 @@ export const logoutUser = async () => {
     }
 };
 
-onAuthStateChanged(auth, (user) => {
-    const userStatusDiv = document.getElementById("userStatus");
-    if (user) {
-        userStatusDiv.innerHTML = `Logged in as ${user.email}`;
-    } else {
-        userStatusDiv.innerHTML = "Not logged in";
-    }
-});
+// Handle Authentication State
+export const onAuthStateChange = (callback) => {
+    onAuthStateChanged(auth, callback);
+};
+
