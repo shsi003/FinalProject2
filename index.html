@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library App</title>
+    <link rel="stylesheet" href="css/styles.css"> 
+</head>
+<body>
+    <h1>Library App</h1>
+
+    <div id="authSection">
+        <h2>Register</h2>
+        <input type="email" id="registerEmail" placeholder="Email">
+        <input type="password" id="registerPassword" placeholder="Password">
+        <button id="registerBtn">Register</button>
+
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button id="loginBtn">Login</button>
+
+        <button id="logoutBtn">Logout</button>
+    </div>
+
+	<div id="userStatus"></div>
+
+    
+   
+    <div id="bookSection" style="display: none;">
+        <div id="searchSection">
+            <input type="text" id="searchField" placeholder="Search for books...">
+            <button id="searchBtn">Search</button>
+            <ul id="searchResults"></ul>
+        </div>
+
+        <div id="userBookListSection">
+            <h2>Your Book List</h2>
+            <ul id="userBookList"></ul>
+        </div>
+    </div>
+
+   
+   
+    
+   
+    <script type="module" src="./js/index.js"></script> 
+</body>
+</html>
