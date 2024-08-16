@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -11,7 +11,16 @@ h1 {
     margin: 20px 0;
 }
 
-/* Authentication Section */
+p {
+    margin: 0;
+	text-align: center;
+    padding: 0;
+    font-size: 1.2em; 
+    color: #555; 
+	margin-bottom: 40px;
+}
+
+
 #authSection {
     text-align: center;
     margin-bottom: 20px;
@@ -43,7 +52,7 @@ h1 {
     background-color: #218838;
 }
 
-/* Book Section */
+
 #bookSection {
     padding: 20px;
 }
@@ -101,7 +110,7 @@ h1 {
     background-color: #218838;
 }
 
-/* User Book List Section */
+
 #userBookListSection {
     margin-top: 20px;
 }
@@ -139,7 +148,7 @@ h1 {
     background-color: #c82333;
 }
 
-/* User Status */
+
 #userStatus {
     text-align: center;
     margin: 20px 0;
