@@ -38,8 +38,45 @@ document.getElementById("searchBtn").addEventListener("click", async () => {
         searchResults.innerHTML = 'Please enter a search term.';
     }
 });
-
 function displayBooks(books) {
+    const searchResults = document.getElementById('searchResults');
+    searchResults.innerHTML = '';
+
+    if (books.length === 0) {
+        searchResults.innerHTML = 'No books found.';
+    } else {
+        books.forEach(book => {
+            const listItem = document.createElement('li');
+
+            const title = book.title_suggest || 'No title';
+            const author = book.author_name ? book.author_name.join(', ') : 'No author';
+
+            listItem.innerHTML = `
+                ${title} by ${author}
+                <button class="addBookBtn" data-title="${title}" data-author="${author}">Add</button>
+            `;
+
+            searchResults.appendChild(listItem);
+        });
+
+        document.querySelectorAll('.addBookBtn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const title = event.target.getAttribute('data-title');
+                const author = event.target.getAttribute('data-author');
+                addBookToUserList(title, author);
+            });
+        });
+    }
+}
+
+function addBookToUserList(title, author) {
+    const userBookList = document.getElementById('userBookList');
+    const listItem = document.createElement('li');
+    listItem.textContent = `${title} by ${author}`;
+    userBookList.appendChild(listItem);
+}
+
+/*function displayBooks(books) {
     const searchResults = document.getElementById("searchResults");
     searchResults.innerHTML = '';
 
@@ -54,7 +91,7 @@ function displayBooks(books) {
             searchResults.appendChild(listItem);
         });
     }
-}
+}*/
 
 // Set up the authentication state listener
 onAuthStateChange(user => {
