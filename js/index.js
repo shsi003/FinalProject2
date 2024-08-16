@@ -76,22 +76,7 @@ function addBookToUserList(title, author) {
     userBookList.appendChild(listItem);
 }
 
-/*function displayBooks(books) {
-    const searchResults = document.getElementById("searchResults");
-    searchResults.innerHTML = '';
 
-    if (books.length === 0) {
-        searchResults.innerHTML = 'No books found.';
-    } else {
-        books.forEach(book => {
-            const listItem = document.createElement('li');
-            const title = book.title_suggest || 'No title';
-            const author = book.author_name ? book.author_name.join(', ') : 'No author';
-            listItem.textContent = `${title} by ${author}`;
-            searchResults.appendChild(listItem);
-        });
-    }
-}*/
 
 // Set up the authentication state listener
 onAuthStateChange(user => {
