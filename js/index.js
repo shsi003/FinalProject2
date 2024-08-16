@@ -1,5 +1,8 @@
 import { registerUser, loginUser, logoutUser, onAuthStateChange } from "./components/auth.js";
 import { fetchBooks } from "./components/fetchbooks.js";
+import { BookList } from './components/bookList.js';
+
+const bookList = new BookList('userBookList');
 
 document.getElementById("registerBtn").addEventListener("click", async () => {
     const email = document.getElementById("registerEmail").value;
