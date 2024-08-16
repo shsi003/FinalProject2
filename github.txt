@@ -1,7 +1,7 @@
-PLEASE READ VERY IMPORTANT
-THIS PROJECT IS THE SECOND DRAFT OF A PREVIOUS EFFORT WHICH TANKED,
-PROGRESS WAS CARRIED OVER FROM THE OLD DRAFT.
+VERY IMPORTANT PLEASE READ
 
-CURRENT LINK (THIS PROJECT):https://github.com/shsi003/FinalProject2.git
+This project represents the second draft of a previous effort which did not succeed. 
+Progress from the old draft has been carried over to this new version.
 
-OLD DRAFT:https://github.com/shsi003/FinalProject.git
+Current Project: https://github.com/shsi003/FinalProject2.git
+Previous Draft: https://github.com/shsi003/FinalProject.git
