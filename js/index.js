@@ -23,6 +23,12 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
     if (email && password) {
         await loginUser(email, password);
+        
+        loadBooksFromFirestore(userId, books => {
+            books.forEach(book => {
+                addBookToUserList(book.title, book.author, book.id);
+            });
+        });
     } else {
         console.error("Please fill in both email and password fields.");
     }
