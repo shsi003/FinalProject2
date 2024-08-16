@@ -17,7 +17,7 @@ const updateBookListUI = async () => {
             userBookList.forEach(book => addBookToUserList(book.title, book.author, book.id));
             userBookListElement.style.display = 'block'; // Ensure it is visible
         } else {
-            userBookListElement.innerHTML = 'No books in your list.';
+            userBookListElement.innerHTML = '';
             userBookListElement.style.display = 'block'; // Ensure it is visible
         }
     } else {
