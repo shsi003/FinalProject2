@@ -1,6 +1,8 @@
 import { registerUser, loginUser, logoutUser, onAuthStateChange } from "./components/auth.js";
 import { fetchBooks } from "./components/fetchbooks.js";
 import { BookList } from './components/bookList.js';
+import { addBookToFirestore, loadBooksFromFirestore, removeBookFromFirestore } from "./components/firestoreOperations.js";
+
 
 const bookList = new BookList('userBookList');
 
