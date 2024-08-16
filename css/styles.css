@@ -1,0 +1,146 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Authentication Section */
+#authSection {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#authSection h2 {
+    margin-bottom: 10px;
+}
+
+#authSection input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+#authSection button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#authSection button:hover {
+    background-color: #218838;
+}
+
+/* Book Section */
+#bookSection {
+    padding: 20px;
+}
+
+#searchSection {
+    margin-bottom: 20px;
+}
+
+#searchSection input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#searchSection button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+#searchSection button:hover {
+    background-color: #0056b3;
+}
+
+#searchResults {
+    list-style-type: none;
+    padding: 0;
+}
+
+#searchResults li {
+    background-color: #f8f9fa;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#searchResults button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#searchResults button:hover {
+    background-color: #218838;
+}
+
+/* User Book List Section */
+#userBookListSection {
+    margin-top: 20px;
+}
+
+#userBookListSection h2 {
+    margin-bottom: 10px;
+}
+
+#userBookList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#userBookList li {
+    background-color: #f8f9fa;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#userBookList button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#userBookList button:hover {
+    background-color: #c82333;
+}
+
+/* User Status */
+#userStatus {
+    text-align: center;
+    margin: 20px 0;
+}
