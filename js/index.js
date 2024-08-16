@@ -1,11 +1,31 @@
-import { registerUser, loginUser, logoutUser, onAuthStateChange } from "./components/auth.js";
+import { registerUser, loginUser, logoutUser, onAuthStateChange, getUserBookList } from "./components/auth.js";
 import { fetchBooks } from "./components/fetchbooks.js";
 import { BookList } from './components/bookList.js';
 import { addBookToFirestore, loadBooksFromFirestore, removeBookFromFirestore } from "./components/firestoreOperations.js";
 
-
 const bookList = new BookList('userBookList');
+let currentUserId = null;
 
+// Function to update user book list on UI
+const updateBookListUI = async () => {
+    if (currentUserId) {
+        const userBookList = await getUserBookList();
+        const userBookListElement = document.getElementById('userBookList');
+        userBookListElement.innerHTML = ''; // Clear existing list
+
+        if (userBookList.length > 0) {
+            userBookList.forEach(book => addBookToUserList(book.title, book.author, book.id));
+            userBookListElement.style.display = 'block'; // Ensure it is visible
+        } else {
+            userBookListElement.innerHTML = 'No books in your list.';
+            userBookListElement.style.display = 'block'; // Ensure it is visible
+        }
+    } else {
+        console.log("No user is currently signed in.");
+    }
+};
+
+// Register Button Click Handler
 document.getElementById("registerBtn").addEventListener("click", async () => {
     const email = document.getElementById("registerEmail").value;
     const password = document.getElementById("registerPassword").value;
@@ -17,27 +37,28 @@ document.getElementById("registerBtn").addEventListener("click", async () => {
     }
 });
 
+// Login Button Click Handler
 document.getElementById("loginBtn").addEventListener("click", async () => {
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
 
     if (email && password) {
         await loginUser(email, password);
-        
-        loadBooksFromFirestore(userId, books => {
-            books.forEach(book => {
-                addBookToUserList(book.title, book.author, book.id);
-            });
-        });
+		document.getElementById('bookSection').style.display='block';
     } else {
         console.error("Please fill in both email and password fields.");
     }
 });
 
+// Logout Button Click Handler
 document.getElementById("logoutBtn").addEventListener("click", async () => {
     await logoutUser();
+    currentUserId = null;
+    document.getElementById('userBookList').innerHTML = '';
+    document.getElementById('userBookList').style.display = 'none'; // Hide the list on logout
 });
 
+// Search Button Click Handler
 document.getElementById("searchBtn").addEventListener("click", async () => {
     const query = document.getElementById("searchField").value;
     const searchResults = document.getElementById("searchResults");
@@ -50,11 +71,7 @@ document.getElementById("searchBtn").addEventListener("click", async () => {
     }
 });
 
-
-
-
-
-
+// Display Books
 function displayBooks(books) {
     const searchResults = document.getElementById('searchResults');
     searchResults.innerHTML = '';
@@ -64,72 +81,62 @@ function displayBooks(books) {
     } else {
         books.forEach(book => {
             const listItem = document.createElement('li');
-
             const title = book.title_suggest || 'No title';
             const author = book.author_name ? book.author_name.join(', ') : 'No author';
 
             listItem.innerHTML = `
                 ${title} by ${author}
-                <button class="addBookBtn" data-title="${title}" data-author="${author}">Add</button>
+                <button class="addBookBtn" data-title="${title}" data-author="${author}" data-id="${book.key}">Add</button>
             `;
 
             searchResults.appendChild(listItem);
         });
 
         document.querySelectorAll('.addBookBtn').forEach(button => {
-            button.addEventListener('click', (event) => {
+            button.addEventListener('click', async (event) => {
                 const title = event.target.getAttribute('data-title');
                 const author = event.target.getAttribute('data-author');
-                addBookToUserList(title, author);
+                const id = event.target.getAttribute('data-id');
+
+                if (currentUserId) {
+                    addBookToUserList(title, author, id);
+                    await addBookToFirestore(currentUserId, title, author, id);
+                } else {
+                    console.error("User must be logged in to add books.");
+                }
             });
         });
     }
 }
 
-function addBookToUserList(title, author) {
+// Add Book to User List UI
+function addBookToUserList(title, author, id) {
     const userBookList = document.getElementById('userBookList');
     const listItem = document.createElement('li');
     listItem.textContent = `${title} by ${author}`;
-    
-    // Create a remove button
+
+    // Create and add remove button
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
-    
-    // Attach event listener to the remove button
-    removeButton.addEventListener('click', () => {
-        // Remove the book from the list
+    removeButton.addEventListener('click', async () => {
         userBookList.removeChild(listItem);
-        // You may also want to update any in-memory book list or data structure if applicable
+        await removeBookFromFirestore(currentUserId, id);
     });
-    
-    // Append the remove button to the list item
+
     listItem.appendChild(removeButton);
-    
-    // Append the list item to the user book list
     userBookList.appendChild(listItem);
 }
 
-
-//backup code incase the one above fails
-/*function addBookToUserList(title, author) {
-    const userBookList = document.getElementById('userBookList');
-    const listItem = document.createElement('li');
-    listItem.textContent = `${title} by ${author}`;
-    userBookList.appendChild(listItem);
-}*/
-
-
-
 // Set up the authentication state listener
-onAuthStateChange(user => {
-    const bookSection = document.getElementById("bookSection");
-    const userStatusDiv = document.getElementById("userStatus");
-
+onAuthStateChange((user) => {
     if (user) {
-        userStatusDiv.innerHTML = `Logged in as ${user.email}`;
-        bookSection.style.display = 'block';
+        currentUserId = user.uid;
+        console.log("User is signed in:", user.email);
+        updateBookListUI(); // Fetch and display the user's book list
     } else {
-        userStatusDiv.innerHTML = "Not logged in";
-        bookSection.style.display = 'none';
+        console.log("No user is signed in.");
+        currentUserId = null;
+        document.getElementById('userBookList').innerHTML = ''; // Clear book list
+        document.getElementById('userBookList').style.display = 'none'; // Hide the list
     }
 });
